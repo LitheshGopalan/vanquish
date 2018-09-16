@@ -1,0 +1,40 @@
+package com.rbs.vanquish.framework.bpm.conf;
+/** --------------------------------------------------------------------------------------------------------
+ * Description    : DataSource Cloud Configuration Java class for vanquish application. 
+ * Author         : Lithesh Anargha 
+ * Email          : Lithesh.Anargha@rbs.co.uk
+ * Date           : 20/08/2018
+ * Project        : Vanquish 
+ * Platform       : Bankline Direct Digital
+ * Organization   : Royal Bank of Scotland plc.
+-------------------------------------------------------------------------------------------------------- **/
+import javax.sql.DataSource;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.cloud.Cloud;
+import org.springframework.cloud.CloudFactory;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
+
+@Configuration
+@Profile("cloud")
+public class DataSourceCloudConfiguration {
+
+  private  final Logger LOGGER = LoggerFactory.getLogger(DataSourceCloudConfiguration.class);
+	
+  @Bean
+  public Cloud cloud() {
+    return new CloudFactory().getCloud();
+  }
+
+  @Bean
+  public DataSource dataSource() {
+    return cloud().getSingletonServiceConnector(DataSource.class, null);
+  }
+  
+  private  void logMessage(String lsMessage) {
+		 LOGGER.info(lsMessage);
+	 }
+}

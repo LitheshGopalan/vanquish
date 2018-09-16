@@ -1,0 +1,29 @@
+{
+	"Vanquish_Application": 
+	{
+    		"Task": 
+    		[
+     			 {"TaskName": "PPW_Task_ArchiveInboundFile",    		"Class": "com.rbs.vanquish.bpm.task.PaymentFileArchiver"},
+                 {"TaskName": "PPW_Task_PerformDuplicateFileCheck", 	"Class": "com.rbs.vanquish.bpm.task.PerformDuplicateFileCheck"},
+                 {"TaskName": "PPW_Task_Duplicate_File_Found", 			"Class": "com.rbs.vanquish.bpm.task.PerformDuplicateFileFound"},
+                 {"TaskName": "PPW_Task_Synatx_Check", 					"Class": "com.rbs.vanquish.bpm.task.PerformSyntaxCheck"},
+                 {"TaskName": "PPW_Task_CreateStatusDuplicateFile", 	"Class": "com.rbs.vanquish.bpm.task.PerformSyntaxCheck"},
+                 {"TaskName": "PPW_Task_CreateStatusSyntaxFailed", 		"Class": "com.rbs.vanquish.bpm.task.PerformSyntaxCheck"},
+                 {"TaskName": "PPW_Task_InputFile_Transformed", 		"Class": "com.rbs.vanquish.bpm.task.PerformInputFileTransformed"}
+    		],
+    		
+    		
+    		"Queue": 
+    		[
+     			 {"QueueName": "VANQUISH.FILE.INBOUND.SMALL.QUEUE.DEV",  "MessageName": "Message_ReceiveGenericFormattedFile", "Type":"Main" },
+     			 {"QueueName": "VANQUISH.DUPLICATE.CHECK.RESPONSE.DEV",  "MessageName": "Message_PerformDuplicateCheck",       "Type":"Inner-Process"}
+    		],
+    		
+    		
+    		"Event": 
+    		[
+     			 {"MessageName": "Message_ReceiveGenericFormattedFile",          "Class": "com.rbs.vanquish.bpm.event.handler.ConvertedToCommonFileFormat"},
+     			 {"MessageName": "Message_PerformDuplicateCheck",    			 "Class": "com.rbs.vanquish.bpm.event.handler.ReceieveDuplicateCheckStatus"}
+    		]
+    }
+}

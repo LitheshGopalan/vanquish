@@ -1,0 +1,16 @@
+{
+  "hints": [],
+  "groups": [
+    {
+      "sourceType": "com.rbs.vanquish.framework.bpm.config.DataSourceProperties",
+      "name": "vanquish.datasource",
+      "type": "com.rbs.vanquish.framework.bpm.config.DataSourceProperties"
+    },
+    {
+      "sourceType": "com.rbs.vanquish.framework.bpm.config.JmsProperties",
+      "name": "vanquish.mq",
+      "type": "com.rbs.vanquish.framework.bpm.config.JmsProperties"
+    }
+  ],
+  "properties": []
+}

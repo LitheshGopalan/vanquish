@@ -1,0 +1,56 @@
+applications:
+  - name: vanquish-bpm-framework
+    memory: 1G
+    instances: 1
+    random-route: false
+    
+camunda.bpm:
+  admin-user:
+    id: admin
+    password: admin
+    firstName: Lithesh
+    history-level: full
+    history-level-default: full
+  filter:
+    create: All tasks
+  database:  
+    schema-update: true
+    type: h2
+
+camunda.bpm.application:
+   scan-for-process-definitions: true
+   
+vanquish: 
+  mq:
+    host: 192.168.11.180
+    port: 1416
+    ccsid: 1208
+    queuemanager: QM
+    channel: mqm.SVRCONN   # SVRCONN
+    username: mqm
+    password: 123456
+    receivetimeout: 2000
+    cachesize: 10
+
+    process:
+       main-queue:
+          queue-name: VANQUISH.FILE.INBOUND.SMALL.QUEUE.DEV #Main queue used to launch business process pool
+          concurrency: 5
+          
+       internal-queues:
+          - queue-name: '#VANQUISH.DUPLICATE.CHECK.REQUEST.DEV' #Internal queue used to communicate inside business process
+            concurrency:  '#2'
+          - queue-name: '#VANQUISH.DUPLICATE.CHECK.RESPONSE.DEV'
+            concurrency:  '#2'
+    
+  datasource: 
+    url: jdbc:oracle:thin:@localhost:1522:orcl
+    username: HIBERNATE_TEST
+    password: HIBERNATE_TEST
+    driverclass: oracle.jdbc.driver.OracleDriver
+    
+    
+    
+    
+   
+ 
